@@ -1,133 +1,101 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Button,
-  Stack,
-} from "@mui/material";
-import { motion } from "framer-motion"; 
+import { Card, CardContent, Typography, Box, Button, Container } from '@mui/material';
+import { motion } from 'framer-motion';
 
 function App() {
-  const pinkPastel = "#FFF5F7";
-
-  const fotos = [
-    { url: "/Nosotros.jpeg", caption: "Foto juntos" },
-    { url: "/Bota.jpeg", caption: "Mi tobillo (F)" },
-    { url: "/Loquenosespera.jpeg", caption: "Lo que nos espera" },
+  const heartImages = [
+    { url: "/Nosotros.jpeg", caption: "Nosotros ❤️" },
+    { url: "/Bota.jpeg", caption: "El culpable 🤕" },
+    { url: "/Loquenosespera.jpeg", caption: "Cenita + Clásico 🍕⚽" }
   ];
 
+  const whatsappUrl = `https://wa.me/521XXXXXXXXXX?text=${encodeURIComponent("¡Acepto! ❤️ Voy para allá con la pizza para cuidar a mi lisiado favorito y ver el América vs Chivas. 🍕⚽")}`;
+
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: pinkPastel,
-        p: 2,
-      }}
-    >
-      <Card
-        sx={{
-          maxWidth: 500,
-          borderRadius: 8,
-          boxShadow: "0 20px 40px rgba(255, 182, 193, 0.3)",
-          overflow: "visible",
-        }}
-      >
-        <CardContent sx={{ textAlign: "center", p: 4 }}>
-          <Typography
-            variant="overline"
-            sx={{ color: "#ff8fa3", fontWeight: "bold", letterSpacing: 2 }}
-          >
-            🚑 Reporte Médico del Corazón
-          </Typography>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      p: 3, // Este es el padding externo para que no pegue al borde del cel
+      backgroundColor: '#FFF5F7' 
+    }}>
+      <Container maxWidth="sm" sx={{ p: 0 }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <Card sx={{ 
+            borderRadius: 6, 
+            boxShadow: '0 10px 30px rgba(255,182,193,0.3)', 
+            overflow: 'hidden' 
+          }}>
+            <CardContent sx={{ 
+              textAlign: 'center', 
+              p: { xs: 3, md: 5 } // Padding dinámico: 3 en cel, 5 en PC
+            }}>
+              <Typography variant="overline" sx={{ color: '#ff8fa3', fontWeight: 'bold' }}>
+                🚑 REPORTE MÉDICO DEL CORAZÓN
+              </Typography>
+              
+              <Typography variant="h4" sx={{ 
+                fontWeight: 900, 
+                mb: 3, 
+                color: '#4a4a4a',
+                fontSize: { xs: '1.8rem', md: '2.5rem' } // Texto más chico en cel
+              }}>
+                Inmóvil pero con hambre de verte...
+              </Typography>
 
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: 900, mt: 2, mb: 4, color: "#4a4a4a" }}
-          >
-            Inmóvil pero con hambre de verte...
-          </Typography>
+              {/* Contenedor de fotos ajustable */}
+              <Box sx={{ 
+                display: 'flex', 
+                flexDirection: { xs: 'column', sm: 'row' }, // Vertical en cel, horizontal en PC
+                alignItems: 'center',
+                justifyContent: 'center', 
+                gap: 3, 
+                mb: 4 
+              }}>
+                {heartImages.map((img, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.05 }}
+                    style={{
+                      backgroundColor: 'white',
+                      padding: '10px 10px 25px 10px',
+                      boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                      borderRadius: '8px',
+                      width: '100%',
+                      maxWidth: '200px' // Limita el tamaño para que no se deformen
+                    }}
+                  >
+                    <img src={img.url} style={{ width: '100%', borderRadius: '4px', display: 'block' }} />
+                    <Typography sx={{ fontFamily: 'Dancing Script', mt: 1, fontSize: '0.9rem' }}>
+                      {img.caption}
+                    </Typography>
+                  </motion.div>
+                ))}
+              </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 2,
-              mb: 5,
-              perspective: "1000px",
-            }}
-          >
-            {fotos.map((foto, index) => (
-              <Box
-                key={index}
-                component={motion.div}
-                whileHover={{ scale: 1.1, zIndex: 10 }}
-                sx={{
-                  width: 120,
-                  height: 150,
-                  backgroundColor: "white",
-                  p: 1,
-                  pb: 3,
-                  boxShadow: 3,
-                  borderRadius: 1,
-                  transform: `rotate(${index % 2 === 0 ? -5 : 5}deg)`,
-                  border: "1px solid #eee",
+              <Typography variant="body1" sx={{ mb: 4, color: '#666', fontSize: '1.1rem' }}>
+                Tobillo: 0 — Nosotros: 1. <br />
+                ¿Vienes a ver el Clásico conmigo? 🦅 vs 🐐
+              </Typography>
+
+              <Button 
+                variant="contained" 
+                href={whatsappUrl}
+                fullWidth // En celular el botón ocupa todo el ancho, es más fácil de picar
+                sx={{ 
+                  bgcolor: '#ff8fa3', 
+                  borderRadius: 4, 
+                  py: 2,
+                  fontWeight: 'bold',
+                  '&:hover': { bgcolor: '#ff758f' } 
                 }}
               >
-                <Box
-                  component="img"
-                  src={foto.url}
-                  sx={{
-                    width: "100%",
-                    height: "80%",
-                    objectCover: "cover",
-                    mb: 1,
-                  }}
-                />
-                <Typography
-                  variant="caption"
-                  sx={{ fontFamily: "Dancing Script, cursive", color: "#888" }}
-                >
-                  {foto.caption}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-
-          <Typography
-            variant="body1"
-            sx={{ color: "#666", mb: 4, fontStyle: "italic" }}
-          >
-            "Tobillo: 0 — Nosotros: 1" <br />
-            El plan es perfecto: América vs. Chivas, comida, botana y tú
-            cuidando al lisiado (Totito). ❤️
-          </Typography>
-
-          <Stack direction="row" spacing={2} justifyContent="center">
-            <Button
-              variant="contained"
-              component="a"
-              href={`https://wa.me/3325731485?text=${encodeURIComponent("Si quiero ir mi totito hermoso peposo y mucho maass")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                bgcolor: "#ff8fa3",
-                "&:hover": { bgcolor: "#ff758f" },
-                borderRadius: 4,
-                px: 4,
-                py: 1.5,
-                fontWeight: "bold",
-                textDecoration: "none",
-              }}
-            >
-              ¡Voy para allá! 🍕❤️
-            </Button>
-          </Stack>
-        </CardContent>
-      </Card>
+                ¡Voy para allá! 🍕❤️
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </Container>
     </Box>
   );
 }
