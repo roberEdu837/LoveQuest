@@ -6,7 +6,7 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import { motion } from "framer-motion"; // Para las animaciones pro
+import { motion } from "framer-motion"; 
 
 function App() {
   const pinkPastel = "#FFF5F7";
